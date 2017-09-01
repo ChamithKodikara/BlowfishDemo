@@ -10,11 +10,35 @@ import static org.hamcrest.core.Is.is;
  */
 public class NumberMaskTester {
     @Test
-    public void shouldReturnEncryptedValueWhenOriginalValueAndPasswordGiven()  {
+    public void shouldReturnEncryptedValueWhenOriginalValueAndPasswordGiven() {
         String originalVal = "0012385485256268";
         BlowfishEncryptDecryptorUtil encryptor = new BlowfishEncryptDecryptorUtil();
         encryptor.setOriginalVal(originalVal);
-        String encryptVal = encryptor.maskCCNumber();
-        assertThat(encryptVal, is("XXXXXXXXXXXX6268"));
+        String maskedCCNumber = encryptor.maskCCNumber();
+        assertThat(maskedCCNumber, is("XXXXXXXXXXXX6268"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenOriginalValueIsNull() {
+        String originalVal = null;
+        BlowfishEncryptDecryptorUtil encryptor = new BlowfishEncryptDecryptorUtil();
+        encryptor.setOriginalVal(originalVal);
+        encryptor.maskCCNumber();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenOriginalValueIsEmpty() {
+        String originalVal = "";
+        BlowfishEncryptDecryptorUtil encryptor = new BlowfishEncryptDecryptorUtil();
+        encryptor.setOriginalVal(originalVal);
+        encryptor.maskCCNumber();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenOriginalValueLengthNotEqual_16() {
+        String originalVal = "";
+        BlowfishEncryptDecryptorUtil encryptor = new BlowfishEncryptDecryptorUtil();
+        encryptor.setOriginalVal(originalVal);
+        encryptor.maskCCNumber();
     }
 }

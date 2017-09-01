@@ -22,8 +22,10 @@ public class BlowfishEncryptDecryptorUtil {
     private String encryptVal;
     private String password;
     protected byte[] bytes;
+    protected final String CREDIT_CARD_NUMBER_MASK;
 
     public BlowfishEncryptDecryptorUtil() {
+        CREDIT_CARD_NUMBER_MASK = "XXXXXXXXXXXX";
     }
 
     public String encrypt() throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException,
@@ -58,7 +60,11 @@ public class BlowfishEncryptDecryptorUtil {
     }
 
     public String maskCCNumber() {
-        return null;
+        if (originalVal != null && !originalVal.isEmpty() && originalVal.length() == 16) {
+            return CREDIT_CARD_NUMBER_MASK + originalVal.substring(originalVal.length() - 4, originalVal.length());
+        } else {
+            throw new IllegalArgumentException("Invalid Original Value");
+        }
     }
 
     public String getOriginalVal() {
