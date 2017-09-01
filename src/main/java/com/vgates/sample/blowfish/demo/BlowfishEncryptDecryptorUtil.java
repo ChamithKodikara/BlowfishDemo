@@ -17,10 +17,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public class BlowfishEncryptDecryptorUtil {
 
-
     private String originalVal;
     private String encryptVal;
     private String password;
+
     protected byte[] bytes;
     protected final String CREDIT_CARD_NUMBER_MASK;
 
